@@ -1,0 +1,290 @@
+/* ============================================================
+   Free Book Club Kit — shared print styles
+   Renders to US Letter via WeasyPrint. No web fonts, no
+   network calls: everything below uses fonts already on disk.
+   ============================================================ */
+
+@page {
+  size: letter;
+  margin: 0.5in;
+}
+
+:root {
+  --ink: #33323a;
+  --ink-soft: #5c5a66;
+  --terra: #b4482f;
+  --sage: #47604a;
+  --gold: #a3702b;
+  --paper-tint: #f7f1e8;
+  --line: #c9c2b4;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Karla", "Helvetica Neue", Arial, sans-serif;
+  font-size: 10.5pt;
+  line-height: 1.45;
+  color: var(--ink);
+}
+
+h1, h2, h3, h4 {
+  font-family: "Fraunces", Georgia, "Times New Roman", serif;
+  color: var(--ink);
+  margin: 0;
+  line-height: 1.2;
+}
+
+p { margin: 0; }
+
+/* ---------- header ---------- */
+
+.sheet-head {
+  border-bottom: 2.5pt solid var(--ink);
+  padding-bottom: 8pt;
+  margin-bottom: 14pt;
+}
+
+.kicker {
+  font-family: "Karla", Arial, sans-serif;
+  font-size: 7.5pt;
+  font-weight: 700;
+  letter-spacing: 2.2pt;
+  text-transform: uppercase;
+  color: var(--terra);
+  margin-bottom: 3pt;
+}
+
+.sheet-head h1 {
+  font-size: 21pt;
+  font-weight: 700;
+}
+
+.sheet-head .lede {
+  margin-top: 4pt;
+  font-size: 9.5pt;
+  color: var(--ink-soft);
+}
+
+/* ---------- generic ---------- */
+
+.rule { border: 0; border-top: 1pt dashed var(--line); margin: 12pt 0; }
+
+.two-col {
+  display: flex;
+  gap: 16pt;
+}
+.two-col > * { flex: 1; min-width: 0; }
+
+.panel {
+  border: 1pt solid var(--line);
+  border-radius: 6pt;
+  padding: 9pt 11pt;
+  background: #fff;
+}
+
+.panel h3 {
+  font-size: 11pt;
+  margin-bottom: 5pt;
+}
+
+.panel.accent-sage  { border-color: var(--sage);  background: #eef3ec; }
+.panel.accent-sage  h3 { color: var(--sage); }
+.panel.accent-terra { border-color: var(--terra); background: #f9efe9; }
+.panel.accent-terra h3 { color: var(--terra); }
+.panel.accent-gold  { border-color: var(--gold);  background: #f8f1e4; }
+.panel.accent-gold  h3 { color: var(--gold); }
+
+.tinted {
+  background: var(--paper-tint);
+  border: 1pt solid var(--line);
+  border-radius: 6pt;
+  padding: 9pt 11pt;
+}
+
+.check-list { list-style: none; margin: 0; padding: 0; }
+.check-list li {
+  padding-left: 15pt;
+  position: relative;
+  margin-bottom: 4pt;
+  font-size: 9.5pt;
+}
+.check-list li::before {
+  content: "☐";
+  position: absolute;
+  left: 0;
+  top: -1pt;
+  font-size: 10pt;
+  color: var(--ink);
+}
+
+.dotted-line {
+  border-bottom: 0.9pt dotted #9a938a;
+  min-height: 14pt;
+  margin-bottom: 5pt;
+}
+
+.field {
+  display: block;
+  margin-bottom: 7pt;
+}
+.field .label {
+  display: block;
+  font-size: 7.5pt;
+  font-weight: 700;
+  letter-spacing: 1pt;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 1pt;
+}
+.field .blank {
+  border-bottom: 0.9pt solid #8f887d;
+  min-height: 13pt;
+}
+
+.fill-box {
+  border: 0.9pt solid #8f887d;
+  border-radius: 4pt;
+  min-height: 34pt;
+}
+
+.tag {
+  display: inline-block;
+  font-size: 7.5pt;
+  font-weight: 700;
+  letter-spacing: 0.5pt;
+  border: 0.8pt solid var(--sage);
+  color: var(--sage);
+  border-radius: 3pt;
+  padding: 1pt 5pt;
+}
+
+.hand {
+  font-family: "Caveat", cursive;
+  font-size: 12.5pt;
+  color: var(--terra);
+}
+
+.sheet-foot {
+  margin-top: 14pt;
+  padding-top: 5pt;
+  border-top: 0.8pt solid var(--line);
+  font-size: 7.5pt;
+  color: var(--ink-soft);
+  letter-spacing: 0.3pt;
+}
+
+/* ---------- cut-out cards (2-up / 4-up) ---------- */
+
+.cut-hint {
+  font-size: 8pt;
+  color: var(--ink-soft);
+  font-style: italic;
+  margin-bottom: 8pt;
+}
+.cut-hint::before { content: "✂  "; }
+
+.card-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10pt;
+}
+
+.card {
+  border: 1.2pt dashed #8f887d;
+  border-radius: 8pt;
+  background: var(--paper-tint);
+  padding: 10pt 12pt;
+}
+
+.card h3 {
+  font-size: 13pt;
+  margin-bottom: 2pt;
+}
+
+/* 2-up cards: each half the page height, stacked */
+.card-2up .card {
+  width: 48.5%;
+  min-height: 4.55in;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 4-up member cards: 2 x 2 grid */
+.card-4up .card {
+  width: 48.5%;
+  min-height: 3.05in;
+}
+
+/* ---------- tables (tracker, roster) ---------- */
+
+table.sheet-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 9pt;
+}
+table.sheet-table th {
+  font-family: "Fraunces", Georgia, serif;
+  font-weight: 700;
+  font-size: 9.5pt;
+  text-align: left;
+  border-bottom: 1.6pt solid var(--ink);
+  padding: 3pt 5pt;
+  white-space: nowrap;
+}
+table.sheet-table td {
+  border-bottom: 0.7pt dotted var(--line);
+  padding: 5.5pt 5pt;
+  vertical-align: bottom;
+}
+table.sheet-table td.num {
+  font-family: "Caveat", cursive;
+  font-size: 12pt;
+  color: var(--terra);
+  white-space: nowrap;
+}
+
+/* ---------- numbered question stems ---------- */
+
+.q-stem {
+  display: flex;
+  gap: 7pt;
+  margin-bottom: 6.5pt;
+  font-size: 9.8pt;
+}
+.q-stem .qnum {
+  flex: 0 0 auto;
+  font-family: "Fraunces", Georgia, serif;
+  font-weight: 700;
+  font-size: 10.5pt;
+  color: var(--terra);
+  min-width: 12pt;
+  text-align: right;
+}
+.q-stem .qtext { flex: 1; }
+.q-stem .qtext em { color: var(--sage); font-style: normal; font-weight: 700; }
+
+.write-line {
+  border-bottom: 0.9pt dotted #9a938a;
+  height: 19pt;
+}
+.q-numbered-row {
+  display: flex;
+  align-items: flex-end;
+  gap: 7pt;
+  margin-bottom: 2pt;
+}
+.q-numbered-row .qnum {
+  font-family: "Fraunces", Georgia, serif;
+  font-weight: 700;
+  font-size: 10.5pt;
+  color: var(--terra);
+  min-width: 12pt;
+  text-align: right;
+}
+.q-numbered-row .write-line { flex: 1; }
